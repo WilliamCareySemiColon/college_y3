@@ -1,0 +1,141 @@
+DROP TABLE Transaction CASCADE CONSTRAINTS PURGE;
+DROP TABLE HasAccount CASCADE CONSTRAINTS PURGE;
+DROP TABLE Account CASCADE CONSTRAINTS PURGE;
+DROP TABLE Client CASCADE CONSTRAINTS PURGE;
+DROP TABLE AccountType CASCADE CONSTRAINTS PURGE;
+
+
+CREATE TABLE AccountType
+(
+	AcType  CHAR(8)  primary key,
+	AccTypeDesc  VARCHAR2(20),
+	DateIntroduced  DATE  NOT NULL ,
+	ExpiryDate  DATE  NULL );
+
+
+
+CREATE TABLE Client
+(
+	ClientId  NUMBER(7)  primary key,
+	CTitle  VARCHAR2(4)  NULL ,
+	CFName  VARCHAR2(30)  not NULL ,
+	CLName  VARCHAR2(40)  not NULL ,
+	CAddr  varchar2(50)  NULL ,
+	CEMail  varchar2(30)  NULL ,
+	CPhone  NUMBER(15)  NULL 
+);
+
+
+CREATE TABLE Account
+(
+	AccNo  NUMBER(8) PRIMARY KEY,
+	DateOpened  DATE  NULL ,
+	DateModified  DATE  NULL ,
+	Balance  DECIMAL(10,2)  NULL ,
+	AcType  CHAR(8)  NULL REFERENCES AccountType(AcType));
+
+
+CREATE TABLE HasAccount
+(
+	ClientId  NUMBER(7)  NOT NULL REFERENCES Client(ClientId),
+	AccNo  NUMBER(8)  NOT NULL REFERENCES Account(AccNo),
+ PRIMARY KEY (ClientId,AccNo));
+
+
+CREATE TABLE Transaction
+(
+	AccNo  NUMBER(8)  NOT NULL REFERENCES Account(AccNo),
+	TXDate  DATE  NOT NULL ,
+	TxType  CHAR  check (txtype in ('D','W')) ,
+	TXAmount  number(10,2)  not NULL ,
+ PRIMARY KEY (AccNo,TXDate)
+);
+
+
+
+insert into accounttype values (
+'Maestro','Master card',SYSDATE-1000,NULL);
+insert into accounttype values (
+'Visa','Visa card',SYSDATE-2000,NULL);
+insert into accounttype values (
+'LTDEP','Long term deposit',SYSDATE-1000,NULL);
+insert into accounttype values (
+'SHORTDEP','Short term deposit',SYSDATE-400,sysdate-20);
+insert into accounttype values (
+'STDCURR','Standard Current',SYSDATE-1000,NULL);
+insert into accounttype values (
+'SUPERSAV','Super saver account',SYSDATE-1000,NULL);
+
+INSERT INTO CLIENT VALUES (6545654,'Ms.','Margaret','Bradley','28 Horseshoe Drive','mags@gmail.com',08345544311);
+INSERT INTO CLIENT VALUES (9815543,'Prof','Jane','Lacey','14 Dairy Close','jd1@viu.com',08545544311);
+INSERT INTO CLIENT VALUES (7543356,'Dr.','Anabelle','Qiao','83 Nutley Ave','ana@hosp.com',08645544311);
+INSERT INTO CLIENT VALUES (5444544,'Mr.','John','McDermott','67 Mangrove Hill','jmcd@eircom.net',08745544311);
+INSERT INTO CLIENT VALUES (9199337,'Dr.','Kevin','Dunne','28 The Dunes','kdunne@gmail.com',08845544311);
+INSERT INTO CLIENT VALUES (9874819,'Ms.','Sally','Greene','44 Highwell Hill','sgreene@hotmail.com',08945544311);
+INSERT INTO CLIENT VALUES (9874820,'Ms.','Caroline','Greene','44 Highwell Hill','cgreene@hotmail.com',08945544311);
+--
+--
+--CREATE TABLE Account
+--(
+--	AccNo  NUMBER(8)  NOT NULL ,
+--	DateOpened  DATE  NULL ,
+--	DateModified  DATE  NULL ,
+--	Balance  DECIMAL(10,2)  NULL ,
+--	AcType  CHAR(8)  NULL ,
+-- PRIMARY KEY (AccNo),
+-- FOREIGN KEY (AcType) REFERENCES AccountType(AcType)
+--);
+--
+insert into ACCOUNT (accno, dateopened) values (9332232,sysdate-1);
+insert into ACCOUNT values (87334564,'23-Jan-1998',sysdate-4,5644.44,'SUPERSAV');
+insert into ACCOUNT values (68312334,'22-SEP-2008','22-SEP-2008',50.00,'STDCURR');
+insert into ACCOUNT values (68311111,'22-SEP-2008','22-SEP-2008',50.00,'STDCURR');
+insert into ACCOUNT values (87654321,'22-SEP-2000','22-SEP-2008',50.00,'LTDEP');
+insert into ACCOUNT values (40248210,'22-SEP-2004','22-SEP-2008',50.00,'LTDEP');
+INSERT INTO ACCOUNT VALUES 
+(98765432,'10-JAN-2000','30-OCT-2008',800,'SHORTDEP');
+INSERT INTO ACCOUNT VALUES 
+(21098765,'10-JAN-2000','30-OCT-2008',800,'Visa');
+--
+--CREATE TABLE HasAccount
+--(
+--	ClientId  NUMBER(7)  NOT NULL ,
+--	AccNo  NUMBER(8)  NOT NULL ,
+-- PRIMARY KEY (ClientId,AccNo),
+-- FOREIGN KEY (ClientId) REFERENCES Client(ClientId),
+-- FOREIGN KEY (AccNo) REFERENCES Account(AccNo)
+--);
+--
+INSERT INTO HASACCOUNT VALUES (6545654,87334564);
+INSERT INTO HASACCOUNT VALUES (6545654,68312334);
+INSERT INTO HASACCOUNT VALUES (6545654,21098765);
+INSERT INTO HASACCOUNT VALUES (7543356,87654321);
+INSERT INTO HASACCOUNT VALUES (7543356,98765432);
+INSERT INTO HASACCOUNT VALUES (7543356,68312334);
+INSERT INTO HASACCOUNT VALUES (9874819,40248210);
+INSERT INTO HASACCOUNT VALUES (9199337,68311111);
+--
+--CREATE TABLE Transaction
+--(
+--	AccNo  NUMBER(8)  NOT NULL ,
+--	TxId  INTEGER  NOT NULL ,
+--	TxType  CHAR  NULL ,
+--	TXAmount  number(10,2)  NULL ,
+--	TXDate  DATE  NULL ,
+-- PRIMARY KEY (AccNo,TxId),
+-- FOREIGN KEY (AccNo) REFERENCES Account(AccNo)
+--);
+
+INSERT INTO TRANSACTION VALUES (87334564,SYSDATE-50,'D',500);
+INSERT INTO TRANSACTION VALUES (87334564,SYSDATE-43,'W',50);
+INSERT INTO TRANSACTION VALUES (87334564,SYSDATE-36,'D',500);
+INSERT INTO TRANSACTION VALUES (87334564,SYSDATE-29,'D',500);
+INSERT INTO TRANSACTION VALUES (87334564,SYSDATE-4,'D',500);
+INSERT INTO TRANSACTION VALUES (87654321,SYSDATE-50,'D',500);
+INSERT INTO TRANSACTION VALUES (40248210,SYSDATE-50,'D',500);
+INSERT INTO TRANSACTION VALUES (98765432,SYSDATE-200,'D',500);
+INSERT INTO TRANSACTION VALUES (98765432,SYSDATE-150,'D',500);
+INSERT INTO TRANSACTION VALUES (98765432,SYSDATE-100,'D',500);
+INSERT INTO TRANSACTION VALUES (98765432,SYSDATE-50,'D',500);
+insert into transaction values (21098765,SYSDATE-1,'W',544);
+commit;
