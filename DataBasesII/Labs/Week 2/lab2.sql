@@ -37,10 +37,11 @@ INNER JOIN CLIENT USING(clientid)
 RIGHT OUTER JOIN (
     SELECT actype, accno FROM ACCOUNT
     INNER JOIN ACCOUNTTYPE USING (actype)
-    WHERE acctypedesc LIKE '%deposit%' OR acctypedesc LIKE '%current%'
+    WHERE acctypedesc LIKE '%deposit%' OR acctypedesc LIKE '%Current%'
 ) ACCOUNTS USING (accno);
 
-SELECT * FROM CLIENTHASACC;
+SELECT * FROM CLIENTHASACC
+GROUP BY clientname;
 
 --b) have both deposit AND current account
 CREATE OR REPLACE VIEW CLIENTHASTWOACC AS
@@ -115,6 +116,16 @@ RIGHT OUTER JOIN (
 SELECT * FROM CLIENTHASNODEPACC;
 
 --e has one or the other but no both
+SELECT * FROM CLIENTHASACC
+GROUP BY clientname
+MINUS
+SELECT * FROM CLIENTHASTWOACC;
+
+--Q5 return full details  from accounttype for account types
+--that is not used in the account table
+SELECT * FROM ACCOUNTTYPE
+FULL JOIN ACCOUNT USING (actype)
+WHERE AccNo IS NULL;
 
 
 SELECT * from hasaccount
