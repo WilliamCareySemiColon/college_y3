@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<student>
+	<name attribute = "gender">
+	</name>
+	<age>
+	</age>
+	<course attribute = "lengthOfCourse">
+	</course>
+	<cityOfStudy>
+	</cityOfStudy>
+	<institution>
+	</institution>
+</student>
