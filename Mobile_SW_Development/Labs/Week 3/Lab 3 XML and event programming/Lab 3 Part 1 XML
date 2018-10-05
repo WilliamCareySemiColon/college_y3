@@ -1,0 +1,9 @@
+<student>
+  <name  gender = "m" > John murphy </name>
+  <age> 21</age>
+  <course>  DT228 </course>
+  <city> Dublin </city>
+  <institution> DIT </institution>
+</student>
+
+: name, age, course, city of study and institution. 
