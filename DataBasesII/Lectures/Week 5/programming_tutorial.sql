@@ -1,0 +1,28 @@
+SET SERVEROUTPUT ON -- Direct output to this session
+DECLARE
+  V_SNO STAFF.STAFF_NO%TYPE:='&Staff_Number'; -- accept user input
+  V_SCODE STOCK.STOCK_CODE%TYPE:='&Stock_Code'; -- accept user input
+  V_QTY integer:=&Quantity_required; -- accept user input
+  V_INSTOCK integer;
+  V_SNAME STAFF.STAFF_NAME%TYPE;
+BEGIN
+  SELECT STAFF_NAME INTO V_SNAME FROM STAFF WHERE STAFF_NO = V_SNO;
+  SELECT QUANTITYINSTOCK INTO V_INSTOCK FROM STOCK WHERE STOCK_CODE = V_SCODE;
+  IF (V_INSTOCK >= V_QTY) THEN
+    INSERT INTO SALE (STAFF_NO, STOCK_CODE, QUANTITY, SALEDATE)
+    VALUES (V_SNO, V_SCODE, V_QTY, SYSDATE);
+    UPDATE STOCK
+      SET QUANTITYINSTOCK = QUANTITYINSTOCK - V_QTY
+    WHERE STOCK_CODE = V_SCODE;
+    COMMIT;
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('There are only '||V_INSTOCK||' of stock code '||V_SCODE||
+    ' so we cannot sell '||V_QTY||'.  The sale is cancelled.');
+  END IF;
+EXCEPTION
+  WHEN OTHERS THEN
+   DBMS_OUTPUT.PUT_LINE(SQLCODE||' '||SQLERRM||' '||V_CURRENTOP);
+   DBMS_OUTPUT.PUT_LINE('Rolling back');
+   ROLLBACK;
+END;
+    

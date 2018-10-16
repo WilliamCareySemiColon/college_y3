@@ -1,0 +1,80 @@
+DROP TABLE SALE;
+DROP TABLE STAFF;
+DROP TABLE STOCK;
+DROP TABLE SUPPLIER;
+CREATE TABLE SUPPLIER (
+  supplier_id number(8) primary key,
+  sname varchar2(40) not null,
+  sph char(13)
+);
+INSERT INTO SUPPLIER VALUES (1040,'Cadbury','5555555');
+INSERT INTO SUPPLIER VALUES (1050,'Tayto','5555555');
+INSERT INTO SUPPLIER VALUES (1060,'Eason','5555555');
+INSERT INTO SUPPLIER VALUES (1070,'Tesco','5555555');
+
+CREATE TABLE Stock (
+       Stock_code      CHAR(8) primary key,
+       supplier_id number(8) not null references supplier,
+       Stock_name      VARCHAR2(20),
+       QuantityInStock INTEGER,
+       price           NUMBER(5,2)
+);
+INSERT INTO STOCK VALUES ('A11111',1060,'Notepad',20,2.95);
+INSERT INTO STOCK VALUES ('A11112',1060,'Blue biro',40,.55);
+INSERT INTO STOCK VALUES ('A11113',1060,'Red biro',40,.55);
+INSERT INTO STOCK VALUES ('A11114',1060,'Ring binder',10,2.60);
+INSERT INTO STOCK VALUES ('A11115',1060,'Eraser',40,.30);
+INSERT INTO STOCK VALUES ('B11111',1040,'Snack bar',24,.80);
+INSERT INTO STOCK VALUES ('E11111',1050,'Cheese+onion crisps',24,.70);
+INSERT INTO STOCK VALUES ('D11111',1070,'Chicken sandwich',24,2.95);
+INSERT INTO STOCK VALUES ('F11111',1070,'Mineral drink',12,2.20);
+INSERT INTO STOCK VALUES ('C11111',1060,'Newspaper',12,1);
+--
+select * from supplier natural join stock;
+
+
+CREATE TABLE Staff (
+       Staff_no   NUMBER(5) PRIMARY KEY,
+       Staff_name VARCHAR2(25) NULL
+);
+
+
+INSERT INTO STAFF VALUES (1, 'Damian');
+INSERT INTO STAFF VALUES (2, 'Bing');
+INSERT INTO STAFF VALUES (3, 'Fred');
+INSERT INTO STAFF VALUES (4, 'Deirdre');
+INSERT INTO STAFF VALUES (5, 'Richard');
+INSERT INTO STAFF VALUES (6, 'Patricia');
+INSERT INTO STAFF VALUES (7, 'June');
+INSERT INTO STAFF VALUES (8, 'Mark');
+--
+
+CREATE TABLE Sale (
+       Stock_code CHAR(8) REFERENCES STOCK,
+       Staff_no   NUMBER(5) REFERENCES STAFF,
+       SaleDate   DATE,
+       quantity   INTEGER,
+       PRIMARY KEY (Stock_code, Staff_no, SaleDate)
+);
+
+
+
+INSERT INTO SALE(stock_code, staff_no, saledate,quantity) 
+VALUES ('A11111',
+1,
+SYSDATE-8,
+1);
+select * from stock where stock_code = 'A11111';
+select * from staff where staff_no = 1;
+INSERT INTO SALE VALUES ('A11111',1,SYSDATE-7,1);
+INSERT INTO SALE VALUES ('A11111',1,SYSDATE-6,3);
+INSERT INTO SALE VALUES ('B11111',1,SYSDATE-5,2);
+INSERT INTO SALE VALUES ('C11111',1,SYSDATE-4,1);
+INSERT INTO SALE VALUES ('A11111',3,SYSDATE-3,1);
+INSERT INTO SALE VALUES ('A11114',3,SYSDATE-2,1);
+INSERT INTO SALE VALUES ('E11111',3,SYSDATE-1,1);
+INSERT INTO SALE VALUES ('F11111',3,SYSDATE-9,1);
+INSERT INTO SALE VALUES ('D11111',3,SYSDATE-10,2);
+INSERT INTO SALE VALUES ('A11112',5,SYSDATE-11,1);
+INSERT INTO SALE VALUES ('A11111',5,SYSDATE-12,1);
+commit;
