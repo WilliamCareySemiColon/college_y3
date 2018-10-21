@@ -1,0 +1,15 @@
+
+Part 1 - simple list  (predefined row layout and off the shelf adapter (ArrayAdapter))
+
+ - just one layout needed - activity_main.xml , which has  a <listview> tag in it. 
+ 
+Part 2 - custom row, off the shelf adapter (ArrayAdapter)
+ 
+ - Need to have ok.png in the res/drawable directory
+ - 2 layours - activity_main with the <listview> AND a row.xml (representing the layout of one row)
+  
+  
+Part 3 - custom row & your own customised adapter (which extends a suitable existing Android adapter)
+ 
+ - Need to have ok.png and xmark.png in the res/drawable directory
+ - 2 layours - activity_main with the <listview> AND a row.xml (representing the layout of one row)
