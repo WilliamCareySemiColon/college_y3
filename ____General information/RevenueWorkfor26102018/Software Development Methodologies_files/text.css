@@ -1,0 +1,179 @@
+@charset "utf-8";
+/* CSS Document */
+body  {
+	margin: 0; 
+	padding: 0;
+	font-family:Arian AMU, Verdana, Arial, Helvetica, sans-serif;
+	font-size:9pt;
+	color:#333333;
+}
+a
+{
+	color:#1160b7;
+	text-decoration:underline;
+}
+a:hover
+{
+	text-decoration:none;
+}
+form
+{
+	padding:0;
+	margin:0;
+}
+p
+{
+	padding:0;
+	margin:0;
+}
+img
+{
+	border:0px;
+}
+.clearfloat
+{
+	clear:both;
+	height:0px;
+	line-height:0px;
+	padding:0;
+	margin:0;
+}
+.h1Big
+{
+	padding:0;
+	margin:0;
+	padding-top:5px;
+	margin-bottom:5px;
+	color:#645e5e;
+	font-size:12pt;
+}
+h1
+{
+	padding:0;
+	margin:0;
+	padding-top:5px;
+	margin-bottom:5px;
+	color:#645e5e;
+	font-size:11pt;
+}
+h2
+{
+	padding:0;
+	margin:0;
+	padding-top:5px;
+	margin-bottom:5px;
+	color:#645e5e;
+	font-size:10pt;
+}
+h3
+{
+	padding:0;
+	margin:0;
+	padding-top:5px;
+	margin-bottom:5px;
+	color:#645e5e;
+	font-size:9pt;
+}
+h4
+{
+	padding:0;
+	margin:0;
+	padding-top:5px;
+	margin-bottom:5px;
+	color:#645e5e;
+	font-size:9pt;
+}
+.insertLinkBtn
+{
+	margin-bottom:3px;
+}
+.insertLinkBtn a
+{
+	font-size:8pt;
+	text-decoration:none;
+}
+.actionLink a
+{
+	font-size:8pt;
+	text-decoration:none;
+}
+.actionLink a:hover
+{
+	text-decoration:underline;
+}
+#topLinks
+{
+	padding-right:10px;
+	font-size:8pt;
+}
+#topLinks a
+{
+	text-decoration:none;
+}
+#topLinks a:hover
+{
+	text-decoration:underline;
+}
+.topMenuItem a
+{
+	color:#FFFFFF;
+	font-weight:bold;
+	font-size:12pt;
+	text-decoration:none;
+}
+.topMenuItem a:hover
+{
+	color:#b0c8d9;
+}
+.blockTitle
+{
+	color:#15669f;
+	font-weight:bold;
+	font-size:11pt;
+	margin-bottom:5px;
+	padding-left:10px;
+	margin-top:0px;
+	padding-top:0px;
+}
+.blockTitle a
+{
+	text-decoration:none;
+	color:#15669f;
+	font-weight:bold;
+	font-size:11pt;
+	margin-bottom:0px;
+	padding-left:0px;
+}
+.treeDiv
+{
+	background-color:#EBEAEB;
+	padding-bottom:10px;
+	padding-right:10px;
+	padding-top:10px;
+	font-size:8pt;
+}
+.treeDiv a
+{
+	font-size:8pt;
+}
+#parentsCnt
+{
+	background-color:#EBEAEB;
+	padding:10px;
+	font-size:8pt;
+}
+.errors
+{
+	background-color:#FFA6A6;
+	border:1px solid #999999;
+	color:#CC0000;
+	font-weight:bold;
+	margin-bottom:5px;
+	font-size:8pt;
+	padding:5px;
+}
+.categoryDiv
+{
+	font-size:8pt;
+	margin-bottom:5px;
+}

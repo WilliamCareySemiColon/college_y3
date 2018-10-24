@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+.crossLinkItem
+{
+	text-decoration:underline;
+	border-bottom:1px solid #CC0;
+	color:#CC0;
+	margin-bottom:2px;
+}
+
+.crossLinkItem .crossLinkItem
+{
+	border: none;
+	margin:0;
+	padding:0;
+}
