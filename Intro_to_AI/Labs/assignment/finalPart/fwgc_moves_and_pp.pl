@@ -24,6 +24,9 @@ move(state(X,W,G,X), state(Y,W,G,Y)) :- opp(X,Y), not(unsafe(Y,W,G,Y)).
 % move self only
 move(state(X,W,G,C), state(Y,W,G,C)) :- opp(X,Y), not(unsafe(Y,W,G,C)).
 
+
+
+
 % Pretty printing code for FWGC solution path and states.
 % showPath(Path)
 showPath([]) :- nl.
@@ -48,17 +51,4 @@ showEast(state(F,W,G,C)) :-
     (W == e, write('W'), !; true),
     (G == e, write('G'), !; true),
     (C == e, write('C'), !; true).
-	
-% hardcoding the goal state into the programme
-goal(state(e,e,e,e)).
-
-% adding the solving state 
-solve(N,Sol) :- solve(N,[],Sol).
-
-solve(Node,Path,[Node | Path]) :- goal(Node).
-
-solve(Node, Path, Sol) :- 
-	move(Node,Successor),
-	not(member(Successor,Path)),
-	solve(Successor,[Node| Path],Sol).
-	
+    
