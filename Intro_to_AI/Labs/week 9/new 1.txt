@@ -1,0 +1,30 @@
+import pymongo
+
+myclient = pymongo.MongoClient("mongodb://localhost:27017
+
+mydb = myclient["mydatabase"]
+
+halloween = mydb["halloween"]
+christmas = mydb["christmas"]
+easter = mydb["Easter"]
+skating = mydb["skating"]
+dancing = mydb["dancing"]
+
+myprice1 = {"price" : "20"}
+
+myprice2 = {"price" : "50"}
+
+myprice3 = {"price" : "30pp/50pc"}
+
+name1 = {"name" : "Kay Casey"}
+name2 = {"name" : "Harry Skater"}
+
+email1 = {"email" : "kcasey@i.com"}
+email2 = {}
+
+myquery = { "name": "Halloween Horror" }
+
+mydoc = christmas.find(myquery)
+
+for x in mydoc:
+  print(x)

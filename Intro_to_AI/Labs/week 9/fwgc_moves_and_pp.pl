@@ -1,3 +1,6 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%The rules to do with the fwgc algorithm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 opp(e,w).
 opp(w,e).
 
@@ -11,18 +14,20 @@ move(state(X,X,G,C), state(Y,Y,G,C)) :-
     opp(X,Y), 
     not(unsafe(Y,Y,G,C)).
 
-
 % move the goat
 move(state(X,W,X,C), state(Y,W,Y,C)) :- 
     opp(X,Y), 
     not(unsafe(Y,W,Y,C)).
-
 
 % move the cabbage
 move(state(X,W,G,X), state(Y,W,G,Y)) :- opp(X,Y), not(unsafe(Y,W,G,Y)).
 
 % move self only
 move(state(X,W,G,C), state(Y,W,G,C)) :- opp(X,Y), not(unsafe(Y,W,G,C)).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%End of the rule set
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Pretty printing code for FWGC solution path and states.
 % showPath(Path)
@@ -49,8 +54,16 @@ showEast(state(F,W,G,C)) :-
     (G == e, write('G'), !; true),
     (C == e, write('C'), !; true).
 	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%End of the printing part
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
 % hardcoding the goal state into the programme
 goal(state(e,e,e,e)).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Solving the state of the alogithm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % adding the solving state 
 solve(N,Sol) :- solve(N,[],Sol).
@@ -61,4 +74,6 @@ solve(Node, Path, Sol) :-
 	move(Node,Successor),
 	not(member(Successor,Path)),
 	solve(Successor,[Node| Path],Sol).
+	
+go :- solve(state(w,w,w,w),A),reverse(A,A1), showPath(A1).
 	

@@ -1,0 +1,26 @@
+database : ruralHotel
+
+collections
+	Halloween
+		eventname
+		eventdesc
+		personame
+		email
+		price
+	Christmas
+		eventname
+		eventdesc
+		personame
+		email
+		price
+		age
+		gender
+	easter
+		eventname
+		eventdesc
+		price
+	skating
+		eventname
+		eventdesc
+		personame
+		

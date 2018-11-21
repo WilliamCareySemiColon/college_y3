@@ -115,6 +115,27 @@ showState([P0, P1, P2, P3, P4, P5, P6, P7, P8]) :-
 	;
 	nl, true .
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%The code for solving the state
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% adding the solving state 
+solve(N,Sol) :- solve(N,[],Sol).
 
+solve(Node,Path,[Node | Path]) :- goal(Node).
 
+solve(Node, Path, Sol) :- 
+	move(Node,Successor),
+	not(member(Successor,Path)),
+	solve(Successor,[Node| Path],Sol).
+	
+go :- write("What number to start at: 4, 5, 6, 7, 8, 18"), nl, read(I), nl, start(I,A), id_solve(A,I,B), reverse(B,B1),showPath(B1).
+
+id_solve(State, Depth, Sol) :- ids_dfs(State, [], Depth, Sol),
+		write("Goal is at depth: "),write(depth),nl,!.
+		
+id_solve(State, Depth, Sol) :- Depth1 is Depth + 1, id_solve(State,Depth1,Sol).
+
+ids_dfs(X,P,D,[X|P]) :- goal(X).
+
+ids_dfs(X,P,D,Sol) :- D > 0, move(X,Y), not(member(Y,P)), D1 is D - 1, ids_dfs(Y,[X|P],D1,Sol).
