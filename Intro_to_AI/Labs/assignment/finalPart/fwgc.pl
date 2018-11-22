@@ -1,13 +1,15 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%The rules to do with the fwgc algorithm
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%The rules to do with the fwgc algorithm%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 opp(e,w).
 opp(w,e).
 
-unsafe(F,X,X,C) :- opp(F,X).
-unsafe(F,W,X,X) :- opp(F,X).
+unsafe(F,X,X,_) :- opp(F,X).
+unsafe(F,_,X,X) :- opp(F,X).
 
-% move(State1, State2).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%moving rules - move(State1, State2).%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % move the wolf
 move(state(X,X,G,C), state(Y,Y,G,C)) :- 
@@ -65,28 +67,6 @@ goal(state(e,e,e,e)).
 %%Solving the state of the alogithm
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% adding the solving state 
-solve(N,Sol) :- solve(N,[],Sol).
-
-solve(Node,Path,[Node | Path]) :- goal(Node).
-
-solve(Node, Path, Sol) :- 
-	move(Node,Successor),
-	not(member(Successor,Path)),
-	solve(Successor,[Node| Path],Sol).
-	
-	
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%To run the programme
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-go :- solve(state(w,w,w,w),A),reverse(A,A1), showPath(A1).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% test ways to run the programme
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-go2 :- id_solve(state(w,w,w,w),6,A), reverse(A,A1),showPath(A1).
-
 id_solve(State, Depth, Sol) :- ids_dfs(State, [], Depth, Sol),
 		write("Goal is at depth: "),write(Depth),nl,!.
 		
@@ -95,4 +75,10 @@ id_solve(State, Depth, Sol) :- Depth1 is Depth + 1, id_solve(State,Depth1,Sol).
 ids_dfs(X,P,_,[X|P]) :- goal(X).
 
 ids_dfs(X,P,D,Sol) :- D > 0, move(X,Y), not(member(Y,P)), D1 is D - 1, ids_dfs(Y,[X|P],D1,Sol).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% test ways to run the programme
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+go:- id_solve(state(w,w,w,w),6,A), reverse(A,A1),showPath(A1).
 	
