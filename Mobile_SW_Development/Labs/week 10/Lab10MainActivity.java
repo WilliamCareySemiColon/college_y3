@@ -1,4 +1,4 @@
-/************************************************************************************/
+/************************************************************************************
 
 
        Class: To connect to a (remote) web server, retrieve what is is at that address
@@ -8,29 +8,36 @@
 	   
 	   Lab 10 
 	   
-*************************************************************************************//
+*************************************************************************************/
 
-
+//applications pacakages
 import android.app.Activity;
+//content packages
 import android.content.Context;
+//network packages
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import java.net.HttpURLConnection;
+import java.net.URL;
+//os pacakages
 import android.os.AsyncTask;
 import android.os.Bundle;
+//utility packages
 import android.util.Log;
+//view packages
 import android.view.View;
+//widget pacakages
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+//java input output packages 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 
 public class MainActivityPart1 extends Activity implements View.OnClickListener
 {
@@ -53,12 +60,14 @@ public class MainActivityPart1 extends Activity implements View.OnClickListener
     {
 
 	
-        // Get the URL from the UI's edit text field.
-	// get an instance of ConnectivityManager
-        // get the active network info from the connectivity manager
-        // if network info returned and a network is available, run the asychronous processing
-
-	// else, set text to say "no network connection available"
+        /********************************************************
+		Get the URL from the UI's edit text field.
+		get an instance of ConnectivityManager
+        get the active network info from the connectivity manager
+        if network info returned and a network is available, 
+		run the asychronous processing
+		else, set text to say "no network connection available"
+		********************************************************/
 
     }
     

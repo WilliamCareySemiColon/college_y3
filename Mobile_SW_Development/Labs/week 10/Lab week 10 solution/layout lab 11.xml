@@ -1,0 +1,40 @@
+?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp"
+        android:weightSum="1">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/myUrl"
+        android:text="Enter a URL here"
+        tools:layout_editor_absoluteY="86dp"
+        tools:layout_editor_absoluteX="56dp" />
+     />
+
+     <Button
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Click to retrieve URL"
+         android:id="@+id/button"
+         tools:layout_editor_absoluteY="200dp"
+         tools:layout_editor_absoluteX="16dp" />
+     />
+    <TextView
+        android:id="@+id/myText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The remote info that you retrieve will appear here"
+        tools:layout_editor_absoluteY="263dp"
+        tools:layout_editor_absoluteX="56dp"
+        android:layout_weight="0.08" />
+
+</LinearLayout>
+

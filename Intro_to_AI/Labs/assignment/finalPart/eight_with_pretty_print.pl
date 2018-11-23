@@ -136,11 +136,28 @@ ids_dfs(X,P,D,Sol) :- D > 0,
 
 
 	
+	
+% adding the solving state 
+solve(N,Sol) :- solve(N,[],Sol).
+
+solve(Node,Path,[Node | Path]) :- goal(Node).
+
+solve(Node, Path, Sol) :- 
+	move(Node,Successor),
+	not(member(Successor,Path)),
+	solve(Successor,[Node| Path],Sol).
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%To run the programme
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+go :- solve(state(w,w,w,w),A),reverse(A,A1), showPath(A1).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %To run the programme
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-go :- 
+go2 :- 
 	write("What number to start at: 4, 5, 6, 7, 8, 18"),
 	nl, read(I), nl,
 	start(I,A), id_solve(A,I,B),
