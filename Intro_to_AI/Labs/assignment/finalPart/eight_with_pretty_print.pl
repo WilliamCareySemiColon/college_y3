@@ -151,7 +151,9 @@ solve(Node, Path, Sol) :-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %To run the programme
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-go :- solve(state(w,w,w,w),A),reverse(A,A1), showPath(A1).
+go :- start4(X),solve(X,A),
+	write('Path is '), length(A,P),write(P),write(' steps').
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %To run the programme
