@@ -1,0 +1,6 @@
+https://drive.google.com/file/d/1KLs9FxCIgYOwVkMCj-9dCnN2E-2nJcj0/view
+From Richards notes
+https://www.geeksforgeeks.org/iterative-deepening-searchids-iterative-deepening-depth-first-searchiddfs/
+Great for comparing speeds between DFS and BFS
+https://xlinux.nist.gov/dads/HTML/manhattanDistance.html
+For Manhattan Dist
