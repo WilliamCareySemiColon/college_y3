@@ -151,5 +151,5 @@ go2 :-
 	write("What number to start at: \c
 	4, 5, 6, 7, 8, 18"),
 	nl, read(I), nl,
-	start(I,A), id_solve(A,0,B),
+	start(I,A), id_solve(A,I,B),
 	reverse(B,B1),showPath(B1).
