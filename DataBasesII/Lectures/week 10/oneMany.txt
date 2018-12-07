@@ -1,0 +1,44 @@
+use OneMany
+db.part.drop()
+db.createCollection("part")
+db.part.insert([{
+  partno: '123-aff-456',
+  name: '#4 grommet',
+  qty: 94,
+  cost: 0.94,
+  price: 3.99
+},
+{
+  partno: '123-aff-457',
+  name: '#4 washer',
+  qty: 30,
+  cost: 0.34,
+  price: 1.99
+},
+{
+  partno: '123-drm-456',
+  name: 'Door moulding',
+  qty: 70,
+  cost: 4,
+  price: 9.99
+}
+])
+//db.part.find({partno: '123-drm-456'}).pretty()
+
+part_array = db.part.find({},{ObjectId:1}).toArray()
+db.products.drop()
+db.createCollection("products")
+db.products.createIndex({catalog_number: 1})
+db.products.insert({
+  name: 'Left-handed smoke shifter',
+  manufacturer: 'ACME Corp',
+  catalog_number: 1234,
+  parts:[
+  	part_array[0]._id,
+ 	part_array[2]._id
+]
+})
+product = db.products.findOne({catalog_number: 1234})
+product_parts = db.part.find({ _id: { $in : product.parts }},{"_id":0,"name":1}).toArray()
+
+//db.products.getIndexes()

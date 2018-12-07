@@ -1,0 +1,65 @@
+use OneSquillions
+db.hosts.drop()
+db.createCollection("hosts")
+db.hosts.insert([
+{
+    name : 'goofy.example.com',
+    ipaddr : '127.66.66.66'
+},
+{
+  name: 'ICT Domain Socappsrv2',
+  ipaddr : '147.252.30.5'
+},
+{
+  name: 'Laptop POB VM',
+  ipaddr: '192.169.99.1'} ] 
+)
+var hostid = db.hosts.findOne({name: 'goofy.example.com'},{ObjectId:1})
+var POBid = db.hosts.findOne({name: 'Laptop POB VM'},{ObjectId:1})
+var DITid = db.hosts.findOne({name: 'ICT Domain Socappsrv2'},{ObjectId:1})
+
+db.hosts.find()
+db.logmsg.drop()
+db.createCollection("logmsg")
+
+var textArray = [
+    'The computer is on fire',
+    'The screen went blank',
+    'Nothing is happening',
+    'This is boring',
+    'Everything is working perfectly'
+]
+var randomNumber = Math.floor(Math.random()*textArray.length);
+for (var i = 0; i < 2000; i++){
+  db.logmsg.insert({
+  date: new ISODate(),
+    message : textArray[randomNumber],
+    host: hostid._id     // Reference to the Host document
+	});
+  randomNumber = Math.floor(Math.random()*textArray.length);
+  
+  db.logmsg.insert({
+  date: new ISODate(),
+    message : textArray[randomNumber],
+    host: DITid._id     // Reference to the Host document
+	});
+  randomNumber = Math.floor(Math.random()*textArray.length);
+  
+  db.logmsg.insert({
+  date: new ISODate(),
+    message : textArray[randomNumber],
+    host: POBid._id     // Reference to the Host document
+	});
+  randomNumber = Math.floor(Math.random()*textArray.length)
+  };
+db.logmsg.insert({
+  date: new ISODate(),
+    message : 'cpu is on fire!',
+    host: hostid._id     // Reference to the Host document
+})
+//db.logmsg.find()
+
+host = db.hosts.findOne({ipaddr : '127.66.66.66'});  
+// assumes unique index
+// find the most recent 5000 log message documents linked to that host
+last_500_msg = db.logmsg.find({host: host._id}).sort({time : -1}).limit(500).toArray()
