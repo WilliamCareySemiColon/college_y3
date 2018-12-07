@@ -1,0 +1,10 @@
+City
+Edition (year of games) 
+Sport (specific set of events) 
+Discipline (more generic sport area) 
+Athlete 
+NOC (home country TLA) 
+Gender 
+Event 
+Event_gender 
+Medal 
