@@ -1,0 +1,15 @@
+Person details in relation to the sports
+name
+nalionality
+gender
+area of specility
+
+
+event key details
+city
+edition
+sport
+discipline
+Event
+event_gender
+award

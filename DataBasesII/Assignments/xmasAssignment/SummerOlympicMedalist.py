@@ -11,6 +11,9 @@ winners = searchForMedalist[['Edition','Discipline','Event','Event_gender']].dro
 	.sort_values(['Edition','Discipline','Event','Event_gender'],
         ascending = [True,True, True,True])
 
+winnersName = searchForMedalist[['Athlete','NOC','Gender']].drop_duplicates()\
+	.sort_values(['Athlete','NOC','Gender'],
+        ascending = [True,True,True])
 #connecting to the server	
 #myclient = py.MongoClient("mongodb://localhost:27017/")
 #connecting to the database
@@ -24,28 +27,28 @@ def writeafile(filename):
     print('Opening ', filename)
     rec = 'use DBMedalist\n'
     file.write(rec)
-    for q,r, s, t, in thisfile[['Edition','Discipline','Event','Event_gender']].itertuples(index=False):
-        tc = (searchForMedalist[(searchForMedalist['Edition']==q) & (searchForMedalist['Discipline']==r)
-                                & (searchForMedalist['Event']==s) & (searchForMedalist['Event_gender']==t) ])
-        j = (tc.groupby(['Edition','Discipline','Event','Event_gender'],as_index=False)
-             .apply(lambda x:x[[]].to_dict('r')).reset_index())
-        #.apply(lambda x: x[['AirportId','Name','IATA_FAA', 'ICAO','Latitude','Longitude','Altitude_ft']]
-              # .to_dict('r')).reset_index().rename(columns={0:'Airports'}).to_json(orient='records'))
-        rec = 'db.summerOlympicMedalists.insert(' + str(tc) + ')\n'
+    for q,r, s, in thisfile[['Athlete','NOC','Gender']].itertuples(index=False):
+        tc = (searchForMedalist[(searchForMedalist['Athlete']==q) & (searchForMedalist['NOC']==r)
+                                & (searchForMedalist['Gender']==s)])
+        j = (tc.groupby(['Athlete','NOC','Gender'],as_index=False)
+             .apply(lambda x:x[['City','Edition','Sport','Discipline','Event','Medal']].to_dict('r')).reset_index()
+             .rename(columns={0:'AreaOfSpeciality'}).to_json(orient='records'))
+        rec = 'db.summerOlympicMedalists12many.insert(' + str(j) + ')\n'
         file.write(rec)
     file.close()
     print('Closing ', filename)
     return()
 
 #variables that have been touched yet in the csv file 'City',
-#City Discipline Medal Gender
+
 count = 1
-countmax = round(len(winners)+.5)/1000
+countmax = round(len(winnersName)+.5)/1000
+MAX = 11
 print(countmax)
-while (count <= countmax):
-    filename = 'Events' + str(count) + '.js'
+while ((count <= countmax) & (count <= MAX)):
+    filename = 'PersonEvents' + str(count) + '.js'
     print(filename,'start:',count*1000-1,' end: ', count*1000 + 999)
-    thisfile = winners[count*1000 -1: count*1000 + 999]
+    thisfile = winnersName[count*1000 -1: count*1000 + 999]
     print(thisfile.head())
     print ('The count is:', count)
     b = writeafile(filename)
