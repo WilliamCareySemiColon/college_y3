@@ -16,7 +16,7 @@
 #         The program splits the dataset into 1,000 row chunks, and writes each chunk to a file.  This is to prevent memory errors.
 #         
 import pandas as pd
-df = pd.read_csv('data/airports.csv', sep = ',', 
+df = pd.read_csv('airport.csv', sep = ',', 
                  delimiter = None,encoding='latin-1')
 city = df[['Country', 'City','Timezone','DST']]\
 .drop_duplicates()\
@@ -31,10 +31,7 @@ def writeafile(filename):
         tc = (df[(df['Country']==r) & (df['City']==s)])
         j = (tc.groupby(['Country','City','Timezone','DST'], as_index=False)
         .apply(lambda x: x[['AirportId','Name','IATA_FAA', 'ICAO','Latitude','Longitude','Altitude_ft']]
-               .to_dict('r'))
-             .reset_index()
-             .rename(columns={0:'Airports'})
-             .to_json(orient='records'))
+               .to_dict('r')).reset_index().rename(columns={0:'Airports'}).to_json(orient='records'))
         rec = 'db.Cities.insert(' + j + ')\n'
         file.write(rec)
     file.close()
@@ -45,12 +42,12 @@ count = 1
 countmax = round(len(city)+.5)/1000
 print(countmax)
 while (count <= countmax):
-    filename = 'data/cityairporttz' + str(count) + '.js'
+    filename = 'cityairporttz' + str(count) + '.js'
     print(filename,'start:',count*1000-1,' end: ', count*1000 + 999)
     thisfile = city[count*1000 -1: count*1000 + 999]
     print(thisfile.head())
     print ('The count is:', count)
-    b = writeafile(filename)
+    #b = writeafile(filename)
     count = count + 1
 
 print ("Finished - GoodBye!")
