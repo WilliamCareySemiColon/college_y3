@@ -1,0 +1,1 @@
+mongoimport -d DBMedalist -c summerOlympicMedalists --type CSV --file Summer_Olympic_medallists_1896-2008.csv --headerline
