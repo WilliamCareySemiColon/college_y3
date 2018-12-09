@@ -1,0 +1,75 @@
+ //selection
+ 
+ select Athlete, NOC, Gender
+from summerOlympicMedalists12many;
+
+db.getCollection("summerOlympicMedalists12many").find({}, 
+    { 
+        "Athlete" : "$Athlete", 
+        "NOC" : "$NOC", 
+        "Gender" : "$Gender"
+    }
+);
+
+//projection
+
+select *
+from summerOlympicMedalists12many
+where AreaOfSpeciality.Medal LIKE 'Gold'
+
+use DBMedalist;
+db.getCollection("summerOlympicMedalists12many").find(
+    { 
+        "AreaOfSpeciality.Medal" : /^Gold$/i
+    }
+);
+
+//sorting the order
+
+select *
+from summerOlympicMedalists12many
+Order BY Athlete DESC
+
+use DBMedalist;
+db.getCollection("summerOlympicMedalists12many").find({}).sort(
+    { 
+        "Athlete" : NumberInt(-1)
+    }
+);
+
+//aggreation
+
+SELECT COUNT(ATHLETE)
+FROM summerOlympicMedalists12many
+WHERE NOC LIKE 'USA'
+AND AreaOfSpeciality.Medal LIKE 'Gold'
+
+db.getCollection("summerOlympicMedalists12many").aggregate(
+    [
+        { 
+            "$match" : {
+                "NOC" : /^USA$/i, 
+                "AreaOfSpeciality.Medal" : /^Gold$/i
+            }
+        }, 
+        { 
+            "$group" : {
+                "_id" : {
+
+                }, 
+                "COUNT(ATHLETE)" : {
+                    "$sum" : NumberInt(1)
+                }
+            }
+        }, 
+        { 
+            "$project" : {
+                "_id" : NumberInt(0), 
+                "COUNT(ATHLETE)" : "$COUNT(ATHLETE)"
+            }
+        }
+    ], 
+    { 
+        "allowDiskUse" : true
+    }
+);
