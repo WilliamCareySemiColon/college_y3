@@ -4,7 +4,7 @@ import pandas as pd
 import ast
 
 #reading the contents from the csv file
-searchForMedalist = pd.read_csv('Summer_Olympic_medallists_1896-2008.csv', sep = ',',
+searchForMedalist = pd.read_csv('../Summer_Olympic_medallists_1896-2008.csv', sep = ',',
 			delimiter = None, encoding='latin-1')
 			
 winners = searchForMedalist[['Edition','Discipline','Event','Event_gender']].drop_duplicates()\
