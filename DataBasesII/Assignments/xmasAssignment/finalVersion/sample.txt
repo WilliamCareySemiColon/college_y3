@@ -1,0 +1,13 @@
+passengerid
+survived
+name
+sex
+age
+sibsp - sib spouse count
+parch - child ad count
+
+ticket no
+pclass
+fare
+cabin
+embarked
